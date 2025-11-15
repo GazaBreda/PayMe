@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0" />
+    <title>PayMe - Smart Bill Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>PayMe</h1>
+
+    <!-- ========================= AUTH SECTION ========================= -->
+    <div id="auth-container">
+
+      <!-- SIGNUP BOX -->
+      <div id="signup-box">
+        <h2>Create Account</h2>
+        <input type="email" id="signup-email" placeholder="Email">
+        <input type="password" id="signup-password" placeholder="Password">
+        <button id="signup-btn">Sign Up</button>
+      </div>
+
+      <!-- LOGIN BOX -->
+      <div id="login-box">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Password">
+        <button id="login-btn">Log In</button>
+        <button id="forgot-btn" type="button">Forgot password?</button>
+
+      </div>
+
+      <button id="logout-btn" style="display:none;">Log Out</button>
+
+      <hr />
+    </div>
+
+    <!-- ========================= HIDDEN APP UNTIL LOGIN ========================= -->
+    <div id="app-content" style="display:none;">
+
+      <div id="monthly-income-display">
+        Monthly Income: $0.00
+      </div>
+      <button id="theme-toggle">Toggle Dark Mode</button>
+
+      <!-- ========================= INCOME ========================= -->
+      <section id="income-section">
+        <h2>Income</h2>
+        <input type="number" id="salary" placeholder="Enter your Salary" />
+        <select id="salary-frequency">
+          <option value="weekly">Weekly</option>
+          <option value="Biweekly">Biweekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+
+        <button id="save-income">Save Income</button>
+      </section>
+
+      <!-- ========================= GROCERIES ========================= -->
+      <section id="groceries-section">
+        <h2>Groceries List</h2>
+
+        <div class="grocery-inputs">
+          <input type="number" id="grocery-qty" placeholder="Qty" min="1" value="1">
+
+          <select id="grocery-unit">
+            <option value="">(none)</option>
+            <option value="lbs">lbs</option>
+            <option value="kg">kg</option>
+            <option value="pk">pk</option>
+            <option value="tray">tray</option>
+            <option value="bag">bag</option>
+            <option value="bottle">bottle</option>
+            <option value="box">box</option>
+            <option value="can">can</option>
+            <option value="carton">carton</option>
+            <option value="roll">roll</option>
+            <option value="bunch">bunch</option>
+            <option value="pcs">pcs</option>
+            <option value="dozen">dozen</option>
+            <option value="gal">gal</option>
+            <option value="ml">ml</option>
+            <option value="oz">oz</option>
+          </select>
+
+          <input type="text" id="grocery-item" placeholder="Item name…">
+
+          <select id="grocery-category">
+            <option value="Veggies & Fruits">Veggies & Fruits</option>
+            <option value="Meat">Meat</option>
+            <option value="Dairy">Dairy</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Cleaning Supplies">Cleaning Supplies</option>
+            <option value="Canned Goods">Canned Goods</option>
+            <option value="Frozen Foods">Frozen Foods</option>
+            <option value="Paper Goods">Paper Goods</option>
+            <option value="Drinks">Drinks</option>
+            <option value="Produce">Produce</option>
+            <option value="Other" selected>Other</option>
+          </select>
+
+          <button id="add-grocery">Add</button>
+        </div>
+
+        <ul id="grocery-list"></ul>
+
+        <button id="clear-groceries" class="danger-btn">Clear All</button>
+      </section>
+
+      <!-- ========================= BILLS ========================= -->
+      <section id="bills-section">
+        <h2>Add a Bill</h2>
+        <input type="text" id="bill-name" placeholder="Bill Name" />
+        <input type="number" id="bill-amount" placeholder="Bill Amount" />
+        <input type="date" id="bill-due-date" />
+
+        <select id="bill-frequency">
+          <option value="weekly">Weekly</option>
+          <option value="Biweekly">Biweekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+
+        <select id="bill-priority">
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3" selected>Low</option>
+        </select>
+
+        <button id="add-bill">Add Bill</button>
+      </section>
+
+      <section id="bills-list-section">
+        <h2>Your Bills</h2>
+        <ul id="bills-list"></ul>
+      </section>
+
+    </div> <!-- END APP CONTENT -->
+
+    <!-- ========================= UPDATE POPUP ========================= -->
+    <div id="update-popup" class="popup hidden">
+      <div class="popup-box">
+        <h3>Update Bill</h3>
+
+        <input type="text" id="update-name" placeholder="Bill Name">
+        <input type="number" id="update-amount" placeholder="Bill Amount">
+        <input type="date" id="update-due">
+
+        <select id="update-frequency">
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Biweekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+
+        <select id="update-priority">
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3">Low</option>
+        </select>
+
+        <button id="save-update">Save</button>
+        <button id="cancel-update" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Firebase (compat builds so we can use firebase.* global) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyACvEldNMrY_4Jk_a2FtHo3ZACNM-LQSeQ",
+    authDomain: "payme-fb549.firebaseapp.com",
+    projectId: "payme-fb549",
+    storageBucket: "payme-fb549.firebasestorage.app",
+    messagingSenderId: "826920215118",
+    appId: "1:826920215118:web:2c50604c1a65ad8bc2d91f",
+    measurementId: "G-026PKP01SZ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+
+<script src="script.js"></script>
+
+
+    <!-- ========================= YOUR MAIN JS ========================= -->
+    <script src="script.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,334 @@
+/* ========== GLOBAL STYLES ========== */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #0078d7;
+  margin-bottom: 30px;
+}
+
+h2 {
+  border-bottom: 2px solid #0078d7;
+  padding-bottom: 5px;
+  color: #444;
+}
+
+/* ========== CONTAINERS ========== */
+section {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 700px;
+}
+
+#bills-list-section ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ========== INPUTS & BUTTONS ========== */
+input,
+select,
+button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+input:focus,
+select:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+button {
+  background-color: #0078d7;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* ========== SUMMARY STYLES ========== */
+#summary-section p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+#sum-priority {
+  background-color: #f9fafc;
+  border-left: 4px solid #0078d7;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+/* ========== BILL LIST ========== */
+#bills-list li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+#bills-list li:hover {
+  transform: scale(1.02);
+}
+
+/* Color by priority */
+.high-priority {
+  border-left: 6px solid #e53935;
+}
+
+.medium-priority {
+  border-left: 6px solid #fb8c00;
+}
+
+.low-priority {
+  border-left: 6px solid #43a047;
+}
+
+/* Bill text area */
+.bill-text {
+  flex-grow: 1;
+}
+
+/* Optional delete button */
+.delete-btn {
+  background: none;
+  color: #e53935;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.delete-btn:hover {
+  color: #b71c1c;
+}
+/* Popup overlay */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.popup-box h3 {
+  margin-top: 0;
+}
+
+.popup-box input,
+.popup-box select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  font-size: 16px;
+}
+
+#save-update {
+  background-color: #0078d7;
+  color: white;
+  width: 48%;
+  margin-right: 2%;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: black;
+  width: 48%;
+}
+#monthly-income-display {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #0078d7;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+#groceries-section {
+  margin-top: 20px;
+}
+
+.grocery-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+#grocery-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+#grocery-list li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 6px;
+}
+
+.danger-btn {
+  background-color: #d9534f;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.danger-btn:hover {
+  background-color: #c9302c;
+}
+#grocery-list li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 6px;
+}
+
+.grocery-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#grocery-qty {
+  width: 60px;
+}
+
+#grocery-category {
+  flex-grow: 1;
+}
+/* BILL ROW LAYOUT */
+.bill-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: #f7f7f7;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* COLOR STRIPS */
+.high-strip {
+  width: 6px;
+  height: 100%;
+  background: #e74c3c; /* red */
+  border-radius: 4px;
+}
+
+.medium-strip {
+  width: 6px;
+  height: 100%;
+  background: #f1c40f; /* yellow */
+  border-radius: 4px;
+}
+
+.low-strip {
+  width: 6px;
+  height: 100%;
+  background: #2ecc71; /* green */
+  border-radius: 4px;
+}
+
+/* BILL INFO */
+.bill-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bill-info span {
+  font-size: 14px;
+  color: #555;
+}
+
+.due-days {
+  font-weight: bold;
+  color: #444;
+}
+
+/* BUTTON AREA */
+.bill-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.update-btn, .delete-btn {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.update-btn {
+  background: #007bff;
+  color: white;
+}
+
+.delete-btn {
+  background: #eee;
+}
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark section {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark .bill-row,
+body.dark #grocery-list li {
+  background-color: #222;
+}
+
+#theme-toggle {
+  margin: 10px 0;
+}
